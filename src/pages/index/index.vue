@@ -30,6 +30,7 @@
             </el-submenu>
             <el-menu-item :index="'/index' + item.url" v-else>{{item.title}}</el-menu-item>
           </div>
+          
           <!-- <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-s-goods"></i>
