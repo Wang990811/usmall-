@@ -8,7 +8,7 @@
       default-expand-all
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="id" label="活动名称" sortable width="180">
+      <el-table-column prop="title" label="活动名称" sortable width="180">
       </el-table-column>
       <el-table-column prop="status" label="状态">
         <template slot-scope="scope">
@@ -27,11 +27,11 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { reqBannerDel } from "../../../util/request";
+import { reqSeckillDel } from "../../../util/request";
 export default {
   computed: {
     ...mapGetters({
-      list: "banner/list",
+      list: "seckill/list",
     }),
   },
   components: {},
@@ -45,17 +45,17 @@ export default {
     },
     // 删除
     del(id) {
-      reqBannerDel({ id: id }).then((res) => {
+      reqSeckillDel({ id: id }).then((res) => {
         alert("删除成功");
-        this.requestBannerList();
+        this.requestSeckillList();
       });
     },
     ...mapActions({
-      requestBannerList: "banner/requestBannerList",
+      requestSeckillList: "seckill/requestSeckillList",
     }),
   },
   mounted() {
-    this.requestBannerList();
+    this.requestSeckillList();
   },
 };
 </script>

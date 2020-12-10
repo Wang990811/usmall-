@@ -16,19 +16,21 @@
             <i class="el-icon-menu"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span>系统设置</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/index/menu">菜单管理</el-menu-item>
-              <el-menu-item index="/index/role">角色管理</el-menu-item>
-              <el-menu-item index="/index/manger">管理员管理</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-
-          <el-submenu index="3">
+          <div v-for="item in list.menus" :key="item.id">
+            <el-submenu :index="item.url" v-if="item.children">
+              <template slot="title">
+                <i class="el-icon-setting"></i>
+                <span>{{item.title}}</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item :index="'/index'+i.url" v-for="i in item.children" :key="i.id">{{i.title}}</el-menu-item>
+                <!-- <el-menu-item index="/index/role">角色管理</el-menu-item>
+                <el-menu-item index="/index/manger">管理员管理</el-menu-item> -->
+              </el-menu-item-group>
+            </el-submenu>
+            <el-menu-item :index="'/index' + item.url" v-else>{{item.title}}</el-menu-item>
+          </div>
+          <!-- <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-s-goods"></i>
               <span>商城管理</span>
@@ -41,20 +43,22 @@
               <el-menu-item index="/index/banner">轮播图管理</el-menu-item>
               <el-menu-item index="/index/seckill">秒杀活动</el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
+          </el-submenu> -->
         </el-menu>
       </el-aside>
       <el-container>
         <!-- 头部 -->
         <el-header style="text-align: right; font-size: 12px">
-          <span>{{list.username}}</span>
+          <span>{{ list.username }}</span>
           <el-dropdown>
             <i class="el-icon-setting"></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>查看</el-dropdown-item>
               <el-dropdown-item>新增</el-dropdown-item>
               <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item><el-button type="danger" @click="quit">退出</el-button></el-dropdown-item>
+              <el-dropdown-item
+                ><el-button type="danger" @click="quit">退出</el-button></el-dropdown-item
+              >
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
@@ -63,7 +67,7 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ $route.name }}</el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 二级路由出口 -->
           <div class="rout"><router-view></router-view></div>
@@ -73,12 +77,12 @@
   </div>
 </template>
 <script>
-import {mapGetters,mapActions} from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      list:'user/list'
-    })
+      list: "user/list",
+    }),
   },
   components: {},
   data() {
@@ -88,15 +92,15 @@ export default {
   },
   methods: {
     ...mapActions({
-      requestUserList:'user/requestUserList'
+      requestUserList: "user/requestUserList",
     }),
-    quit(){
+    quit() {
       this.requestUserList({});
-      this.$router.replace('/login');
-      
+      this.$router.replace("/login");
+
       // sessionStorage.setItem('list','')
       // sessionStorage.setItem('isLogin','');
-    }
+    },
   },
   mounted() {},
 };
@@ -128,14 +132,14 @@ export default {
   min-width: 0;
 }
 .el-menu[data-v-1badc801] {
-    list-style: none;
-    position: relative;
-    margin: 0;
-    padding-left: 0;
-    background-color: #FFF;
-    border: none;
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  background-color: #fff;
+  border: none;
 }
-.rout{
+.rout {
   margin-top: 15px;
 }
 </style>

@@ -11,6 +11,7 @@ import spec from './modules/spec'
 import goods from './modules/goods'
 import vip from './modules/vip'
 import banner from './modules/banner'
+import seckill from './modules/seckill'
 export default new Vuex.Store({
     modules:{
         menu,
@@ -22,5 +23,6 @@ export default new Vuex.Store({
         goods,
         vip,
         banner,
+        seckill,
     }
 })

@@ -46,7 +46,7 @@
               v-for="item in twoRouter"
               :key="item.path"
               :label="'/' + item.path"
-              :value="item.name"
+              :value="'/' + item.path"
             ></el-option>
           </el-select>
         </el-form-item>
