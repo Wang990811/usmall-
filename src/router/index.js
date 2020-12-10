@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/index'
 
 Vue.use(Router)
 // 懒加载
@@ -65,7 +66,7 @@ export const twoRouter = [
 ]
 
 
-const router =  new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
@@ -78,7 +79,14 @@ const router =  new Router({
         ...twoRouter,
         {
           path: 'home',
-          component: home
+          component: home,
+          beforeEnter: (to, from, next) => {
+            if (from.path == '/login' && store.state.user.list) {
+              next();
+            } else {
+              next('/login');
+            }
+          }
         },
         {
           path: '',
@@ -86,10 +94,10 @@ const router =  new Router({
         }
       ]
     },
-    {
-      path: '/',
-      component: login
-    },
+    // {
+    //   path: '/',
+    //   component: login
+    // },
     {
       path: '*',
       redirect: 'login'
@@ -98,15 +106,21 @@ const router =  new Router({
 })
 
 //全局守卫
-router.beforeEach((to,from,next) => {
-  if(to.path=='/login'){
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
     next();
   }
 
-  var isLogin = sessionStorage.getItem('isLogin');
-  if(isLogin){
+  if (store.state.user.list.menus) {
     next();
   }
+  // console.log(store)
+
+  //直接用sessionStorage
+  // var isLogin = sessionStorage.getItem('isLogin');
+  // if(isLogin){
+  //   next();
+  // }
 })
 
 

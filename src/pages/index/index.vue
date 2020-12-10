@@ -83,7 +83,7 @@ export default {
   components: {},
   data() {
     return {
-      // list:JSON.parse(sessionStorage.getItem('list')),简单
+      // list:JSON.parse(sessionStorage.getItem('list')),
     };
   },
   methods: {
@@ -91,10 +91,11 @@ export default {
       requestUserList:'user/requestUserList'
     }),
     quit(){
-      this.$router.replace('/login');
       this.requestUserList({});
-      // sessionStorage.setItem('list','')简单
-      sessionStorage.setItem('isLogin','');
+      this.$router.replace('/login');
+      
+      // sessionStorage.setItem('list','')
+      // sessionStorage.setItem('isLogin','');
     }
   },
   mounted() {},

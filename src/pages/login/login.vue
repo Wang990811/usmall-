@@ -2,15 +2,19 @@
   <div class="login">
     <div class="loginWrap">
       <h3>登录</h3>
-      <div><input type="text" v-model="user.username" placeholder="请输入用户名" /></div>
-      <div><input type="text" v-model="user.password" placeholder="请输入密码" /></div>
+      <div>
+        <input type="text" v-model="user.username" placeholder="请输入用户名" />
+      </div>
+      <div>
+        <input type="text" v-model="user.password" placeholder="请输入密码" />
+      </div>
       <div class="btn"><input type="submit" value="登录" @click="login" /></div>
     </div>
   </div>
 </template>
 <script>
-import {reqMangerLogin} from '../../util/request'
-import {mapGetters,mapActions} from 'vuex'
+import { reqMangerLogin } from "../../util/request";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {},
   data() {
@@ -23,20 +27,19 @@ export default {
   },
   methods: {
     ...mapActions({
-      requestUserList:'user/requestUserList'
+      requestUserList: "user/requestUserList",
     }),
     login() {
-      reqMangerLogin(this.user).then(res => {
-        if(res.data.code==200){
+      reqMangerLogin(this.user).then((res) => {
+        if (res.data.code == 200) {
+          this.requestUserList(res.data.list);
+          // sessionStorage.setItem('list',JSON.stringify(res.data.list));
+          // sessionStorage.setItem('isLogin',true)
           this.$router.push("/index/home");
-          this.requestUserList(res.data.list)
-          // sessionStorage.setItem('list',JSON.stringify(res.data.list));简单
-          sessionStorage.setItem('isLogin',true)
-        }else{
+        } else {
           alert(res.data.msg);
         }
-      })
-      
+      });
     },
   },
   mounted() {},

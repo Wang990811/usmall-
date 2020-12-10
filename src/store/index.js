@@ -8,7 +8,7 @@ import manger from './modules/manger'
 import cate from './modules/cate'
 import user from './modules/user'
 import spec from './modules/spec'
-
+import goods from './modules/goods'
 import vip from './modules/vip'
 import banner from './modules/banner'
 export default new Vuex.Store({
@@ -19,7 +19,7 @@ export default new Vuex.Store({
         cate,
         user,
         spec,
-        
+        goods,
         vip,
         banner,
     }

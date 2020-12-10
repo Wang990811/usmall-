@@ -19,21 +19,36 @@ const mutations = {
     }
 }
 const actions = {
-    requestSpecList(context) {
-        reqSpecList({
-            size: context.state.size,
-            page: context.state.page
-        }).then(res => {
-            var arr = res.data.list
-            // console.log(arr)
-            arr.forEach(item => {
-                // console.log(JSON.parse(item.attrs))
-                if (item.attrs != '') {
-                    item.attrs = JSON.parse(item.attrs)
-                }
+    requestSpecList(context, tag) {
+        if (tag=="") {
+            //tag为了标识，在商品管理的添加组件中用，商品规格的下拉框需要
+            reqSpecList().then(res => {
+                var arr = res.data.list
+                // console.log(arr)
+                arr.forEach(item => {
+                    // console.log(JSON.parse(item.attrs))
+                    if (item.attrs != '') {
+                        item.attrs = JSON.parse(item.attrs)
+                    }
+                })
+                context.commit('changeList', arr)
             })
-            context.commit('changeList', arr)
-        })
+        } else {
+            reqSpecList({
+                size: context.state.size,
+                page: context.state.page
+            }).then(res => {
+                var arr = res.data.list
+                // console.log(arr)
+                arr.forEach(item => {
+                    // console.log(JSON.parse(item.attrs))
+                    if (item.attrs != '') {
+                        item.attrs = JSON.parse(item.attrs)
+                    }
+                })
+                context.commit('changeList', arr)
+            })
+        }
     },
     //获取总数请求
     requestSpecCount(context) {

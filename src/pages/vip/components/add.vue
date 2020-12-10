@@ -25,9 +25,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="info.isShow = false">取 消</el-button>
-        <el-button type="primary" @click="add" v-if="info.isAdd"
-          >添 加</el-button
-        >
+        <el-button type="primary" @click="add" v-if="info.isAdd">添 加</el-button>
         <el-button type="primary" @click="update" v-else>修 改</el-button>
       </div>
     </el-dialog>
@@ -35,15 +33,11 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {
-  reqMangerAdd,
-  reqMangerOne,
-  reqMangerEdit,
-} from "../../../util/request";
+import { reqVipListOne, reqVipEdit } from "../../../util/request";
 export default {
   computed: {
     ...mapGetters({
-      roleList: "role/list",
+        goodsList:'vip/list'
     }),
   },
   props: ["info"],
@@ -61,9 +55,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      requestRoleList: "role/requestRoleList",
-      requestMangerList: "manger/requestMangerList",
-      requestMangerCount: "manger/requestMangerCount",
+      requestVipList:'vip/requestVipList'
     }),
     // 清空
     empty() {
@@ -79,22 +71,24 @@ export default {
       this.info.isShow = false;
     },
     // 添加
-    add() {
-      
-    },
+    add() {},
     // 查看一条数据
-    look() {
-      
+    look(uid) {
+      reqVipListOne({ uid: uid }).then((res) => {
+        this.form = res.data.list;
+        this.form.uid = uid;
+        this.form.password = "";
+      });
     },
     // 修改
     update() {
-      
+      reqVipEdit(this.form).then(res => {
+        this.requestVipList();
+        this.hide();
+      })
     },
   },
-  mounted() {
-    
-  },
+  mounted() {},
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>
