@@ -97,8 +97,6 @@ export default {
         status: 1,
       },
       value: [],
-      one: "",
-      two: "",
       formLabelWidth: "120px",
     };
   },
@@ -111,15 +109,28 @@ export default {
       // console.log(this.secondCate)
     },
     //清空
-    empty() {},
+    empty() {
+      this.form = {
+        title: "",
+        begintime: "",
+        endtime: "",
+        first_cateid: "",
+        second_cateid: "",
+        goodsid: "",
+        status: 1,
+      };
+      this.value=[];
+    },
     //   隐藏
     hide() {
       this.info.isShow = false;
     },
     // 添加
     add() {
-      this.form.begintime = this.value[0];
-      this.form.endtime = this.value[1];
+      const firstTime = new Date(this.value[0]).getTime();
+      const secondTime = new Date(this.value[1]).getTime();
+      this.form.begintime = firstTime;
+      this.form.endtime = secondTime;
       reqSeckillAdd(this.form).then((res) => {
         this.hide();
         this.requestSeckillList();
@@ -129,17 +140,21 @@ export default {
     look(id) {
       reqSeckillOne({ id: id }).then((res) => {
         this.form = res.data.list;
+        this.value = []
         if (this.value.length == 0) {
-          this.value.push(res.data.list.begintime);
-          this.value.push(res.data.list.endtime);
+          this.value.push(new Date(parseInt(res.data.list.begintime)));
+          this.value.push(new Date(parseInt(res.data.list.endtime)));
+          console.log(new Date(parseInt(res.data.list.begintime)),new Date(parseInt(res.data.list.endtime)))
         }
         this.form.id = id;
       });
     },
     // 修改
     update() {
-      this.form.begintime = this.value[0];
-      this.form.endtime = this.value[1];
+      const firstTime = new Date(this.value[0]).getTime();
+      const secondTime = new Date(this.value[1]).getTime();
+      this.form.begintime = firstTime;
+      this.form.endtime = secondTime;
       reqSeckillEdit(this.form).then((res) => {
         this.hide();
         this.requestSeckillList();
@@ -153,7 +168,7 @@ export default {
   },
   mounted() {
     this.requestCateList();
-    this.requestGoodsList('');
+    this.requestGoodsList("");
   },
 };
 </script>

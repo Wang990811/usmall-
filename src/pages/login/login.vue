@@ -6,7 +6,7 @@
         <input type="text" v-model="user.username" placeholder="请输入用户名" />
       </div>
       <div>
-        <input type="text" v-model="user.password" placeholder="请输入密码" />
+        <input type="password" v-model="user.password" placeholder="请输入密码" />
       </div>
       <div class="btn"><input type="submit" value="登录" @click="login" /></div>
     </div>

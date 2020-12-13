@@ -80,13 +80,13 @@ const router = new Router({
         {
           path: 'home',
           component: home,
-          beforeEnter: (to, from, next) => {
-            if (from.path == '/login' && store.state.user.list) {
-              next();
-            } else {
-              next('/login');
-            }
-          }
+          // beforeEnter: (to, from, next) => {
+          //   if (from.path == '/login' || from.path == '/' || from.path == '/index/menu' && store.state.user.list) {
+          //     next();
+          //   } else {
+          //     next('/login');
+          //   }
+          // }
         },
         {
           path: '',

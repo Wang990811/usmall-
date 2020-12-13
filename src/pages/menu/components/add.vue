@@ -26,8 +26,8 @@
           v-if="form.type == 1"
         >
           <el-select v-model="form.icon" placeholder="请选择">
-            <el-option label="飞机" value="el-icon-s-promotion">
-              <i class="el-icon-s-promotion"></i>
+            <el-option label="设置" value="el-icon-s-promotion">
+              <i class="el-icon-s-tools"></i>
             </el-option>
             <el-option label="用户" value="el-icon-user-solid">
               <i class="el-icon-user-solid"></i>
