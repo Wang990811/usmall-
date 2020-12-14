@@ -18,8 +18,6 @@ import store from './store/index'
 //图片添加的路径拼接
 Vue.prototype.$preImg = 'http://localhost:3000'
 
-
-
 // 开发提示信息
 Vue.config.productionTip = false
 
